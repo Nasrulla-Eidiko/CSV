@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE CSV_TO_XML_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		 CREATE LASTCHILD OF OutputRoot DOMAIN 'XMLNSC';
+		 SET OutputRoot.XMLNSC.RESPONSE = InputRoot.DFDL.CSV_INPUTMSG.record;
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		 SET OutputRoot = InputRoot;
+	END;
+END MODULE;
